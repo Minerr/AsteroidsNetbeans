@@ -71,7 +71,10 @@
         <module>Bullet</module>
         <module>Enemy</module>
         <module>Explosion</module>
-    </modules>
+        <module>OSGiExtender</module>
+    <module>PlayerOSGi</module>
+    <module>EnemyOSGi</module>
+  </modules>
 
     <properties>
         <netbeans.version>RELEASE82</netbeans.version>
