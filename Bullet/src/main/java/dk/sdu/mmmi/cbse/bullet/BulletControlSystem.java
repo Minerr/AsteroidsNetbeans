@@ -25,10 +25,13 @@ public class BulletControlSystem implements IEntityProcessingService, IGamePlugi
 
     @Override
     public void start(GameData gameData, World world) {
+        BulletController.getInstance().allocateBullets();
+
     }
 
     @Override
     public void stop(GameData gameData, World world) {
+        BulletController.getInstance().clearBullets(world);
     }
 
     @Override
@@ -80,7 +83,9 @@ public class BulletControlSystem implements IEntityProcessingService, IGamePlugi
     }
 
     @Override
-    public void createBullet(World world, Entity shooter) {
-        BulletController.getInstance().shootBullet(world, shooter);
+    public void createBullet(World world, Entity shooter, Class shooterType) {
+        BulletController.getInstance().shootBullet(world, shooter, shooterType);
     }
+    
+    
 }

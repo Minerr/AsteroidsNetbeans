@@ -53,7 +53,8 @@ public class AsteroidFactory {
                 asteroid.setScore(100);
                 break;
         }
-
+        
+        asteroid.setignoreCollisionForClass(Asteroid.class);
         asteroid.setShapeX(new float[asteroid.getShapeNumPoints()]);
         asteroid.setShapeY(new float[asteroid.getShapeNumPoints()]);
         asteroid.setShapeDistances(new float[asteroid.getShapeNumPoints()]);

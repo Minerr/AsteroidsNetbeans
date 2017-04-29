@@ -85,7 +85,7 @@ public class PlayerControlSystem implements IEntityProcessingService, IGamePlugi
 
         for (Entity player : world.getEntities(Player.class)) {
 
-            if (!player.getIsHit()) {
+            if (!player.isDestroyed()) {
                 // Update player data
                 x = player.getX();
                 y = player.getY();
@@ -101,10 +101,10 @@ public class PlayerControlSystem implements IEntityProcessingService, IGamePlugi
                 dt = gameData.getDelta();
 
                 // Get Key Input
-                left = gameData.getKeys().isDown(GameKeys.LEFT);
-                right = gameData.getKeys().isDown(GameKeys.RIGHT);
-                up = gameData.getKeys().isDown(GameKeys.UP);
-                isShooting = gameData.getKeys().isPressed(GameKeys.SPACE);
+                left = gameData.getKeys().isKeyDown(gameData.getKeys().A);
+                right = gameData.getKeys().isKeyDown(gameData.getKeys().D);
+                up = gameData.getKeys().isKeyDown(gameData.getKeys().W);
+                isShooting = gameData.getKeys().isKeyPressed(gameData.getKeys().SPACE);
 
                 // Rotation
                 if (left) {
@@ -146,15 +146,17 @@ public class PlayerControlSystem implements IEntityProcessingService, IGamePlugi
 
                 // Shoot bullet
                 if (isShooting) {
+                    System.out.println("Player is shooting");
                     BulletSPI bulletProvider = Lookup.getDefault().lookup(BulletSPI.class);
-                    bulletProvider.createBullet(world, player);
+                    bulletProvider.createBullet(world, player, Player.class);
                 }
-            } else {
-                player.decreaseLife(1);
-                player.setIsHit(false);
-            }
 
-            if (player.isDestroyed()) {
+                if (player.getIsHit()) {
+                    player.decreaseLife(1);
+                    player.setIsHit(false);
+                }
+
+            } else {
                 player.setLife(0);
             }
 

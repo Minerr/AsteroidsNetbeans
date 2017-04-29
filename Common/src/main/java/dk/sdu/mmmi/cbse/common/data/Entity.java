@@ -1,6 +1,7 @@
 package dk.sdu.mmmi.cbse.common.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public abstract class Entity implements Serializable {
@@ -31,6 +32,16 @@ public abstract class Entity implements Serializable {
     private boolean isDestroyed = false;
     private float expiration;
 
+    private Class ignoreCollisionForClass;
+    
+    public void setignoreCollisionForClass(Class classType) {
+        ignoreCollisionForClass = classType;
+    }
+
+    public Class getIgnoreCollisionForClass() {
+        return ignoreCollisionForClass;
+    }
+    
     public float[] getShapeDistances() {
         return shapeDistances;
     }

@@ -162,7 +162,7 @@ public class EnemyControlSystem implements IEntityProcessingService, IGamePlugin
                 // Shoot bullet
                 if (isShooting) {
                     BulletSPI bulletProvider = Lookup.getDefault().lookup(BulletSPI.class);
-                    bulletProvider.createBullet(world, enemy);
+                    bulletProvider.createBullet(world, enemy, Enemy.class);
                 }
             } else {
                 enemy.decreaseLife(1);

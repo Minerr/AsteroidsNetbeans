@@ -1,0 +1,16 @@
+/branding/target/
+/SilentUpdate/target/
+/application/target/
+/Common/target/
+/CommonExplosion/target/
+/CommonEnemy/target/
+/CommonBullet/target/
+/Core/target/
+/CommonAsteroids/target/
+/Player/target/
+/CommonPlayer/target/
+/Asteroids/target/
+/CollisionDetection/target/
+/Enemy/target/
+/Bullet/target/
+/Explosion/target/

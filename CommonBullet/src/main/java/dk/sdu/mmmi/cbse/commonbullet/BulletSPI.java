@@ -8,5 +8,5 @@ import dk.sdu.mmmi.cbse.common.data.World;
  * @author corfixen
  */
 public interface BulletSPI {
-    void createBullet(World world, Entity shooter);
+    void createBullet(World world, Entity shooter, Class shooterType);
 }

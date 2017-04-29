@@ -70,6 +70,7 @@
         <module>Asteroids</module>
         <module>Bullet</module>
         <module>Enemy</module>
+        <module>Explosion</module>
     </modules>
 
     <properties>

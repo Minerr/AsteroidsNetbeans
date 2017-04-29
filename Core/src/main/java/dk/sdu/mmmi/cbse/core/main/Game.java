@@ -2,13 +2,10 @@ package dk.sdu.mmmi.cbse.core.main;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import dk.sdu.mmmi.cbse.commonbullet.Bullet;
@@ -41,7 +38,6 @@ public class Game implements ApplicationListener {
 
     private SpriteBatch batch;
     private BitmapFont font;
-    private AssetManager assetManager;
 
     private final GameData gameData = new GameData();
     private World world = new World();
@@ -67,6 +63,8 @@ public class Game implements ApplicationListener {
         cam.update();
 
         sr = new ShapeRenderer();
+        font = new BitmapFont();
+        batch = new SpriteBatch();
 
         Gdx.input.setInputProcessor(new GameInputProcessor(gameData));
 
@@ -78,11 +76,6 @@ public class Game implements ApplicationListener {
             plugin.start(gameData, world);
             gamePlugins.add(plugin);
         }
-
-        assetManager = new AssetManager();
-        assetManager.load("gameOverText.png", Texture.class);
-        assetManager.load("pausedText.png", Texture.class);
-        assetManager.load("asteroidsGameText.png", Texture.class);
     }
 
     private void runIPostEntityProcessingServiceProcess() {
@@ -123,23 +116,14 @@ public class Game implements ApplicationListener {
 
         gameData.setDelta(Gdx.graphics.getDeltaTime());
 
-        if (assetManager.update()) {
-            update();
-        }
+        update();
     }
 
     private void update() {
-        // update game keys
-        gameData.getKeys().update();
 
         //if ESC is pressed, toggle between play or paused mode.
-        if (gameData.getKeys().isPressed(GameKeys.ESCAPE)) {
+        if (gameData.getKeys().isKeyPressed(gameData.getKeys().ESCAPE)) {
             toggleGameState();
-        }
-
-        //TOOL: If Shift key is pressed, set gamestate to GAME OVER
-        if (gameData.getKeys().isPressed(GameKeys.SHIFT)) {
-            gameData.setGameState(GameState.GAMEOVER);
         }
 
         // Game State switch
@@ -171,6 +155,9 @@ public class Game implements ApplicationListener {
                 drawPlayScreen();
                 break;
         }
+
+        // update game keys
+        gameData.getKeys().update();
     }
 
     private void resetTimers() {
@@ -187,18 +174,6 @@ public class Game implements ApplicationListener {
         batch.end();
     }
 
-    private void drawGameOverText() {
-        Texture texture = assetManager.get("gameOverText.png", Texture.class);
-        Sprite sprite = new Sprite(texture);
-
-        sprite.setPosition((gameData.getDisplayWidth() / 2) - sprite.getWidth() / 2, (gameData.getDisplayHeight() / 2) - sprite.getHeight() / 2 + 40);
-
-        batch.begin();
-        sprite.draw(batch);
-        batch.end();
-
-    }
-
     //----------- TOGGLE GAME STATE -------------
     private void toggleGameState() {
         if (gameData.getGameState() != (GameState.GAMEOVER)) {
@@ -213,7 +188,7 @@ public class Game implements ApplicationListener {
     //----------- GAME OVER STATE -------------
     private void updateGameOverScreen() {
 
-        if (gameData.getKeys().isPressed(GameKeys.ENTER)) {
+        if (gameData.getKeys().isKeyPressed(gameData.getKeys().ENTER)) {
             gameData.setGameState(GameState.PLAY);
             gameData.resetData();
 
@@ -227,6 +202,10 @@ public class Game implements ApplicationListener {
         }
     }
 
+    private void drawGameOverText() {
+        drawText("GAME OVER", (gameData.getDisplayWidth() / 2) - 50, (gameData.getDisplayHeight() / 2) - 10);
+    }
+
     private void drawGameOverScreen() {
         if (pressEnterTimer > 0) {
             drawText("PRESS ENTER TO START GAME", gameData.getDisplayWidth() / 2 - 120, 80);
@@ -236,14 +215,7 @@ public class Game implements ApplicationListener {
 
     //----------- PAUSED STATE -------------
     private void drawPauseScreen() {
-        Texture texture = assetManager.get("pausedText.png", Texture.class);
-        Sprite sprite = new Sprite(texture);
-
-        sprite.setPosition((gameData.getDisplayWidth() / 2) - sprite.getWidth() / 2, (gameData.getDisplayHeight() / 2) - sprite.getHeight() / 2 + 40);
-
-        batch.begin();
-        sprite.draw(batch);
-        batch.end();
+        drawText("PAUSED", (gameData.getDisplayWidth() / 2) - 40, (gameData.getDisplayHeight() / 2));
     }
 
     // TODO: Reset player correctly at death
@@ -285,14 +257,7 @@ public class Game implements ApplicationListener {
     }
 
     private void drawPlayScreen() {
-        Texture texture = assetManager.get("asteroidsGameText.png", Texture.class);
-        Sprite sprite = new Sprite(texture);
-
-        sprite.setPosition((gameData.getDisplayWidth() / 2) - sprite.getWidth() / 2, (gameData.getDisplayHeight()) - sprite.getHeight() - 10);
-
-        batch.begin();
-        sprite.draw(batch);
-        batch.end();
+        drawText("ASTEROIDS GAME", (gameData.getDisplayWidth() / 2) - 60, (gameData.getDisplayHeight()) - 10);
 
         for (Entity entity : world.getEntities()) {
             if (entity instanceof Bullet) {

@@ -1,4 +1,3 @@
-
 package dk.sdu.mmmi.cbse.bullet;
 
 import dk.sdu.mmmi.cbse.commonbullet.Bullet;
@@ -12,16 +11,16 @@ public class BulletController {
     private static BulletController instance = new BulletController();
 
     private List<Entity> bulletList = new LinkedList<>();
-    private final int MAX_BULLET_COUNT = 50;
+    private final int MAX_BULLET_COUNT = 100;
     private Entity[] aBulletList = new Entity[MAX_BULLET_COUNT];
-    
+
     private BulletController() {
     }
 
     public static BulletController getInstance() {
         return instance;
     }
-    
+
     // Allocates all bullets as placeholders in bulletList
     public void allocateBullets() {
         System.out.println("Allocating " + MAX_BULLET_COUNT + " bullets");
@@ -42,11 +41,12 @@ public class BulletController {
     }
 
     // Find an unused bullet in BulletList and activate it
-    public void shootBullet(World world, Entity shooter) {
+    public void shootBullet(World world, Entity shooter, Class shooterType) {
         for (Entity bullet : aBulletList) {
             if (bullet.getLife() == 0) {
 
                 // Bullet init
+                bullet.setignoreCollisionForClass(shooterType);
                 bullet.setHeight(2);
                 bullet.setWidth(2);
                 bullet.setLife(1);
@@ -66,7 +66,7 @@ public class BulletController {
                 float bulletPosX = shooter.getX() + dx * (shooter.getRadius());
                 float bulletPosY = shooter.getY() + dy * (shooter.getRadius());
                 bullet.setPosition(bulletPosX, bulletPosY);
-                
+
                 // Add bullet to world
                 world.addEntity(bullet);
                 break;
