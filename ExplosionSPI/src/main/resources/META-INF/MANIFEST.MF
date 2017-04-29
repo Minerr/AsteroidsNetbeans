@@ -1,0 +1,4 @@
+Bundle-SymbolicName: EnemyOSGi
+Bundle-ActivationPolicy: lazy
+Service-Component: META-INF/ExplosionCreatorService.xml
+

@@ -12,6 +12,7 @@ import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.commonenemy.Enemy;
 import dk.sdu.mmmi.cbse.commonexplosion.Explosion;
+import dk.sdu.mmmi.cbse.commonexplosion.IExplosionCreator;
 import java.util.Random;
 import org.openide.util.Lookup;
 
@@ -40,9 +41,10 @@ public class EnemyProcess implements IEntityProcessingService {
 
     private final int maxRandomAction = 40;
 
+    private IExplosionCreator explosionCreator;
+
     @Override
     public void process(GameData gameData, World world) {
-        System.out.println("EnemyProcess is processing");
         for (Entity enemy : world.getEntities(Enemy.class)) {
             if (!enemy.getIsHit()) {
                 // Update player data
@@ -131,21 +133,11 @@ public class EnemyProcess implements IEntityProcessingService {
 
             if (enemy.getLife() <= 0) {
                 gameData.increaseScore(enemy.getScore());
-                world.addEntity(createExplosion(enemy.getX(), enemy.getY(), enemy.getRadius()));
+                Entity explosion = explosionCreator.createExplosion(enemy.getX(), enemy.getY(), enemy.getRadius());
+                world.addEntity(explosion);
                 world.removeEntity(enemy);
             }
         }
-    }
-
-    private Entity createExplosion(float x, float y, float radius) {
-        System.out.println("Creating explosion");
-        Entity explosion = new Explosion();
-        explosion.setX(x);
-        explosion.setY(y);
-        explosion.setRadius(radius / 2);
-        explosion.setExpiration(1.5f);
-
-        return explosion;
     }
 
     private int randomInt(int min, int max) {
@@ -175,5 +167,13 @@ public class EnemyProcess implements IEntityProcessingService {
         ship.setShapeX(shapeX);
         ship.setShapeY(shapeY);
 
+    }
+
+    public void setExplosionCreator(IExplosionCreator explosionCreator) {
+        this.explosionCreator = explosionCreator;
+    }
+
+    public void removeExplosionCreator(IExplosionCreator explosionCreator) {
+        this.explosionCreator = null;
     }
 }

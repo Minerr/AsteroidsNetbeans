@@ -74,6 +74,7 @@
         <module>OSGiExtender</module>
     <module>PlayerOSGi</module>
     <module>EnemyOSGi</module>
+    <module>ExplosionSPI</module>
   </modules>
 
     <properties>
