@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="dk.sdu.mmmi.cbse.enemyosgi">
+    <implementation class="dk.sdu.mmmi.cbse.enemyosgi.EnemyProcess"/>
+    <service>
+        <provide interface="dk.sdu.mmmi.cbse.common.services.IEntityProcessingService"/>
+    </service>
+<!--    <reference  bind="setBulletSPI" cardinality="1..1"
+                interface="dk.sdu.mmmi.cbse.commonbullet.BulletSPI"
+                name="BulletSPI" policy="dynamic" unbind="removeBulletSPI"/>-->
+</scr:component>

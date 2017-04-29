@@ -56,8 +56,8 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Bundle-Activator>dk.sdu.mmmi.cbse.enemyosgi.Activator</Bundle-Activator>
-                        <Export-Package />
+<!--                        <Bundle-Activator>dk.sdu.mmmi.cbse.enemyosgi.Activator</Bundle-Activator>
+                        <Export-Package />-->
                     </instructions>
                 </configuration>
             </plugin>

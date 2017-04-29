@@ -13,6 +13,7 @@ import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.commonexplosion.Explosion;
+import org.openide.util.Lookup;
 
 public class PlayerControlSystem implements IEntityProcessingService, IGamePluginService {
 
@@ -34,8 +35,6 @@ public class PlayerControlSystem implements IEntityProcessingService, IGamePlugi
     private boolean right;
     private boolean up;
     private boolean isShooting;
-
-    private BulletSPI bulletProvider;
 
     @Override
     public void start(GameData gameData, World world) {
@@ -145,6 +144,7 @@ public class PlayerControlSystem implements IEntityProcessingService, IGamePlugi
 
                 // Shoot bullet
                 if (isShooting) {
+                    BulletSPI bulletProvider = Lookup.getDefault().lookup(BulletSPI.class);
                     bulletProvider.createBullet(world, player, Player.class);
                 }
 
@@ -198,13 +198,5 @@ public class PlayerControlSystem implements IEntityProcessingService, IGamePlugi
 
         player.setShapeX(shapeX);
         player.setShapeY(shapeY);
-    }
-
-    public void setBulletSPI(BulletSPI bullerProvider) {
-        this.bulletProvider = bulletProvider;
-    }
-
-    public void removeBulletSPI(BulletSPI bullerProvider) {
-        this.bulletProvider = null;
     }
 }

@@ -1,3 +1,0 @@
-Bundle-SymbolicName: PlayerOSGi
-Bundle-ActivationPolicy: lazy
-Service-Component: META-INF/PlayerControlSystem.xml
