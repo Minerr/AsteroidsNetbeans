@@ -14,7 +14,10 @@ public class CollisionSystem implements IPostEntityProcessingService {
 
         for (Entity entity : world.getEntities()) {
             for (Entity otherEntity : world.getEntities()) {
-                if (otherEntity != entity && entity.getIgnoreCollisionForClass() != otherEntity.getClass() && circleCollision(entity, otherEntity)) {
+                if (    otherEntity != entity && 
+                        entity.getIgnoreCollisionForClass() != otherEntity.getClass() && 
+                        otherEntity.getIgnoreCollisionForClass() != entity.getClass() && 
+                        circleCollision(entity, otherEntity)) {
                     entity.collision(otherEntity);
                 }
             }

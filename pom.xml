@@ -72,10 +72,10 @@
         <module>Enemy</module>
         <module>Explosion</module>
         <module>OSGiExtender</module>
-    <module>PlayerOSGi</module>
-    <module>EnemyOSGi</module>
-    <module>ExplosionSPI</module>
-  </modules>
+        <module>PlayerOSGi</module>
+        <module>EnemyOSGi</module>
+        <module>ExplosionCreator</module>
+    </modules>
 
     <properties>
         <netbeans.version>RELEASE82</netbeans.version>
