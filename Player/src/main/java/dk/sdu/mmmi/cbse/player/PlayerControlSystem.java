@@ -37,6 +37,7 @@ public class PlayerControlSystem implements IEntityProcessingService, IGamePlugi
     private boolean right;
     private boolean up;
     private boolean isShooting;
+    
 
     @Override
     public void start(GameData gameData, World world) {
@@ -163,21 +164,10 @@ public class PlayerControlSystem implements IEntityProcessingService, IGamePlugi
             if (player.getLife() <= 0) {
                 gameData.setIsPlayerDead(true);
                 gameData.decreaseLives(1);
-                world.addEntity(createExplosion(player.getX(), player.getY(), player.getRadius()));
+                //world.addEntity(createExplosion(player.getX(), player.getY(), player.getRadius()));
                 world.removeEntity(player);
             }
         }
-    }
-
-    private Entity createExplosion(float x, float y, float radius) {
-        System.out.println("Creating explosion");
-        Entity explosion = new Explosion();
-        explosion.setX(x);
-        explosion.setY(y);
-        explosion.setRadius(radius / 2);
-        explosion.setExpiration(1.5f);
-
-        return explosion;
     }
 
     private void setShape(Entity player) {

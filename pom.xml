@@ -71,9 +71,6 @@
         <module>Bullet</module>
         <module>Enemy</module>
         <module>Explosion</module>
-        <module>OSGiExtender</module>
-        <module>PlayerOSGi</module>
-        <module>EnemyOSGi</module>
         <module>ExplosionCreator</module>
     </modules>
 

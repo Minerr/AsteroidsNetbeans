@@ -94,16 +94,16 @@
         <profile>
             <id>deployment</id>
             <dependencies>
-                <!--                <dependency>
+                <dependency>
                     <groupId>${project.groupId}</groupId>
                     <artifactId>Player</artifactId>
                     <version>${project.version}</version>
-                </dependency>-->
-                <!--                <dependency>
+                </dependency>
+                <dependency>
                     <groupId>${project.groupId}</groupId>
                     <artifactId>Enemy</artifactId>
                     <version>${project.version}</version>
-                </dependency>-->
+                </dependency>
                 <dependency>
                     <groupId>${project.groupId}</groupId>
                     <artifactId>Explosion</artifactId>
@@ -187,11 +187,6 @@
         <profile>
             <id>default</id>
             <dependencies>
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>OSGiExtender</artifactId>
-                    <version>${project.version}</version>
-                </dependency>
                 <dependency>
                     <groupId>${project.groupId}</groupId>
                     <artifactId>SilentUpdate</artifactId>
