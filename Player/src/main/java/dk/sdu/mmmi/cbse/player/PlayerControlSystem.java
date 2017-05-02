@@ -150,7 +150,6 @@ public class PlayerControlSystem implements IEntityProcessingService, IGamePlugi
 
                 // Shoot bullet
                 if (isShooting) {
-                    System.out.println("Player is shooting");
                     BulletSPI bulletProvider = Lookup.getDefault().lookup(BulletSPI.class);
                     bulletProvider.createBullet(world, player, Player.class);
                 }
