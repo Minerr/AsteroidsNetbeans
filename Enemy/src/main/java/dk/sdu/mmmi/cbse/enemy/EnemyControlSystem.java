@@ -182,7 +182,6 @@ public class EnemyControlSystem implements IEntityProcessingService, IGamePlugin
     }
 
     private Entity createExplosion(float x, float y, float radius) {
-        System.out.println("Creating explosion");
         Entity explosion = new Explosion();
         explosion.setX(x);
         explosion.setY(y);

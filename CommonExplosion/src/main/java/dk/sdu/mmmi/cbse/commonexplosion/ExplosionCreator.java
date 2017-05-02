@@ -3,10 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dk.sdu.mmmi.cbse.explosion;
-
-import dk.sdu.mmmi.cbse.commonexplosion.Explosion;
-import dk.sdu.mmmi.cbse.commonexplosion.IExplosionCreator;
+package dk.sdu.mmmi.cbse.commonexplosion;
 
 /**
  *

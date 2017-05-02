@@ -4,14 +4,15 @@ import dk.sdu.mmmi.cbse.commonplayer.Player;
 import dk.sdu.mmmi.cbse.commonbullet.BulletSPI;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
-import dk.sdu.mmmi.cbse.common.data.GameKeys;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
-import dk.sdu.mmmi.cbse.commonexplosion.Explosion;
+import dk.sdu.mmmi.cbse.commonexplosion.ExplosionCreator;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 @ServiceProviders(value = {
     @ServiceProvider(service = IEntityProcessingService.class),
@@ -38,6 +39,8 @@ public class PlayerControlSystem implements IEntityProcessingService, IGamePlugi
     private boolean up;
     private boolean isShooting;
     
+    private ApplicationContext context = new ClassPathXmlApplicationContext("CreateExplosionBeans.xml");
+    private ExplosionCreator explosionCreator = (ExplosionCreator) context.getBean("explosionCreator");
 
     @Override
     public void start(GameData gameData, World world) {
@@ -164,7 +167,7 @@ public class PlayerControlSystem implements IEntityProcessingService, IGamePlugi
             if (player.getLife() <= 0) {
                 gameData.setIsPlayerDead(true);
                 gameData.decreaseLives(1);
-                //world.addEntity(createExplosion(player.getX(), player.getY(), player.getRadius()));
+                world.addEntity(explosionCreator.createExplosion(player.getX(), player.getY(), player.getRadius()));
                 world.removeEntity(player);
             }
         }
